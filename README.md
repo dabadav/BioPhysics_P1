@@ -1,7 +1,6 @@
 # BioPhysics_P1
 
-### Exercises 
- 
+
 Prepare scripts for exercises below using argparse to build the appropriate command line. 
 Output lists should be sorted (by residue o atom number) when appropriate and formatted for an easier read.  
 Upload a tar.gz file with codes (or github link) and examples of the output for each exercise.   
