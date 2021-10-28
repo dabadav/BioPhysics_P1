@@ -1,6 +1,6 @@
 # BioPhysics_P1
 
-Exercises 
+### Exercises 
  
 Prepare scripts for exercises below using argparse to build the appropriate command line. 
 Output lists should be sorted (by residue o atom number) when appropriate and formatted for an easier read.  
@@ -62,7 +62,9 @@ Each element has specific fields and functions with the information regarding th
 check Bio.PDB reference 
 
 https://biopython.org/docs/1.75/api/Bio.PDB.Atom.html, 
+
 https://biopython.org/docs/1.75/api/Bio.PDB.Residue.html, 
+
 https://biopython.org/docs/1.75/api/Bio.PDB.Chain.html 
   
 **Hints for Exercises**
