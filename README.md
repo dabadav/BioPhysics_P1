@@ -23,13 +23,13 @@ Parameters: PDB file name. Optional: Cut-off distance for peptide bonds (default
 Bio.PDB uses a hierarchical set of lists to store the structure 
 Structure 
 
-  |- Models 
+       |- Models 
 
-        |- Chains 
-        
-             |- Residues 
-             
-                  |- Atoms 
+             |- Chains 
+
+                  |- Residues 
+
+                       |- Atoms 
                   
 Each level holds a list of elements of the child level (i.e. a Chain is a list of Residues) 
 Each element has a specific .id element:  
