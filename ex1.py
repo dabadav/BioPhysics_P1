@@ -1,4 +1,4 @@
-from Bio.PDB import PDBParser
+from Bio.PDB import *
 import argparse
 
 parser = argparse.ArgumentParser(
@@ -9,7 +9,7 @@ parser = argparse.ArgumentParser(
 # Format for a optional text argument, default values can be indicated.
 parser.add_argument(
                     '-d', 
-                    type=int,
+                    type = int,
                     dest='distance',
                     help='Maximum distance between CA atoms of residues pairs'
                     )
@@ -25,13 +25,11 @@ args = parser.parse_args()
 pdbparser = PDBParser()
 structure = pdbparser.get_structure(args.pdb_file.strip(".pdb"), args.pdb_file)
 
-model = structure[0]
-chain = model['A']
+# Get all residues from a structure
+res_list = structure.get_residues()
 
-# this example uses only the first residue of a single chain.
-# it is easy to extend this to multiple chains and residues.
-for residue1 in chain:
-    for residue2 in chain:
+for residue1 in res_list:
+    for residue2 in res_list:
         if residue1 != residue2:
             # compute distance between CA atoms
             try:
