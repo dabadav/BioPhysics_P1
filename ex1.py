@@ -7,10 +7,8 @@ parser = argparse.ArgumentParser(
                                  )
 
 # Format for a optional text argument, default values can be indicated.
-parser.add_argument(
-                    '-d', 
+parser.add_argument('distance',
                     type = int,
-                    dest='distance',
                     help='Maximum distance between CA atoms of residues pairs'
                     )
 

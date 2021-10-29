@@ -7,10 +7,8 @@ parser = argparse.ArgumentParser(
                                  )
 
 # Format for a optional text argument, default values can be indicated.
-parser.add_argument(
-                    '-r', 
+parser.add_argument('residue_num',
                     type=int,
-                    dest='residue',
                     help='Residue number (Including Chain if applicable)'
                     )
 
@@ -29,7 +27,7 @@ aa = []
 res_list = st.get_residues()
 
 for res in res_list:
-    if args.residue in res.id:
+    if args.residue_num in res.id:
         aa.append(res.get_resname())
 
 selec = []
