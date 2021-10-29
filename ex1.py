@@ -1,5 +1,7 @@
+from Bio import PDB
 from Bio.PDB import *
 import argparse
+import os
 
 parser = argparse.ArgumentParser(
                                  prog='Script 1', 
@@ -18,10 +20,18 @@ parser.add_argument('pdb_file',
 
 # Read command line into args
 args = parser.parse_args()
-       
+
+
+# Retrieve pdb file
+try:
+    PDBList().retrieve_pdb_file(args.pdb_file, pdir='.', file_format="pdb", overwrite=True)
+    os.rename(f'pdb{args.pdb_file}.ent', f'{args.pdb_file}.pdb')
+except FileExistsError:
+    os.remove(f'pdb{args.pdb_file}.ent')
+    pass
 # read structure from file
 pdbparser = PDBParser()
-structure = pdbparser.get_structure(args.pdb_file.strip(".pdb"), args.pdb_file)
+structure = pdbparser.get_structure(args.pdb_file, f'{args.pdb_file}.pdb')
 
 # Get all residues from a structure
 res_list = structure.get_residues()
