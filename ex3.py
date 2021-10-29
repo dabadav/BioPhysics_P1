@@ -1,5 +1,6 @@
 from Bio.PDB import *
 import argparse
+from retrievepdb import *
 
 parser = argparse.ArgumentParser(
                                  prog='Script 3', 
@@ -21,4 +22,8 @@ parser.add_argument('pdb_file',
 
 # Read command line into args
 args = parser.parse_args()
+
+# Download the pdb file
+retpdb(args)
+
 parser = PDBParser()

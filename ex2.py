@@ -1,5 +1,6 @@
 from Bio.PDB import *
 import argparse
+from retrievepdb import *
 
 parser = argparse.ArgumentParser(
                                  prog='Script 2', 
@@ -18,9 +19,12 @@ parser.add_argument('pdb_file',
 
 # Read command line into args
 args = parser.parse_args()
-parser = PDBParser()
 
-st = parser.get_structure('1UBQ', args.pdb_file)
+# Download the pdb file
+retpdb(args)
+
+pdbparser = PDBParser()
+st = pdbparser.get_structure(args.pdb_file, f'{args.pdb_file}.pdb')
 
 
 aa = []
@@ -35,7 +39,6 @@ for at in st.get_atoms():
     if at.get_parent().get_resname() in aa:
         selec.append(at)
 
-print("Coordinates:")
+print("Atom, coordinates | Resname resid:")
 for atom in selec:
-    print(atom.get_parent().get_resname(), atom.get_parent().id,
-          atom.get_name(), atom.get_coord())
+    print(f'Atom: {atom.get_name()}, coordinates {atom.get_coord()} | {atom.get_parent().get_resname()} {atom.get_parent().id[1]}')
