@@ -45,13 +45,6 @@ print("NBSEARCH:")
 
 #Searching for contacts under HBLNK
 
-<<<<<<< HEAD
-#print the variables once assigned
-Variable2 = args.distance
-Variable_Required = args.pdb_file
-
-print(Variable2, Variable_Required)  
-=======
 ncontact = 1
 
 for at1, at2 in nbsearch.search_all(20):
@@ -61,4 +54,3 @@ for at1, at2 in nbsearch.search_all(20):
         print("ATOM 2:", at2, at2.get_serial_number(), at2.get_parent().get_resname(), at.get_parent().id[1])
         print(f"Distance: {at1-at2}\n")
     ncontact += 1
->>>>>>> fdb6d326ece578c70b3880d44c6ec18304defa2e

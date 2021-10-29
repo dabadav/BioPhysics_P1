@@ -33,13 +33,13 @@ select = []
 #Select only CA atoms
 
 for at in st.get_atoms():
-    if at.id == 'N':
+    if at.id == 'N' or at.id == 'O' or at.id == 'S':
         select.append(at)
 
 # Preparing search
 nbsearch = NeighborSearch(select)
 
-print("NBSEARCH:")
+print("Feasible Hydrogen bonds:")
 
 #Searching for contacts under HBLNK
 
