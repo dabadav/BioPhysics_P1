@@ -1,5 +1,4 @@
-from Bio.PDB.NeighborSearch import NeighborSearch
-from Bio.PDB.PDBParser import PDBParser
+from Bio import PDB
 from Bio.PDB import *
 import argparse
 from retrievepdb import *
@@ -29,30 +28,21 @@ retpdb(args)
 
 # read structure from file
 pdbparser = PDBParser()
-st = pdbparser.get_structure(args.pdb_file, f'{args.pdb_file}.pdb')
+structure = pdbparser.get_structure(args.pdb_file, f'{args.pdb_file}.pdb')
 
 # Get all residues from a structure
-select = []
+res_list = structure.get_residues()
 
-#Select only CA atoms
-
-for at in st.get_atoms():
-    if at.id == 'CA':
-        select.append(at)
-
-# Preparing search
-nbsearch = NeighborSearch(select)
-
-print("NBSEARCH:")
-
-#Searching for contacts under HBLNK
-
-ncontact = 1
-
-for at1, at2 in nbsearch.search_all(20):
-    if at1-at2 < args.distance:
-        print("Contact: ", ncontact)
-        print("ATOM 1:", at1, at1.get_serial_number(), at1.get_parent().get_resname(), at.get_parent().id[1])
-        print("ATOM 2:", at2, at2.get_serial_number(), at2.get_parent().get_resname(), at.get_parent().id[1])
-        print(f"Distance: {at1-at2}\n")
-    ncontact += 1
+for residue1 in res_list:
+    for residue2 in res_list:
+        if residue1 != residue2:
+            # compute distance between CA atoms
+            try:
+                distance = residue1['CA'] - residue2['CA']
+            except KeyError:
+                ## no CA atom, e.g. for H_NAG
+                continue
+            if distance < args.distance:
+                print(residue1, residue2, distance)
+        # stop after first residue
+        break
