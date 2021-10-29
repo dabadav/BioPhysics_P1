@@ -1,5 +1,3 @@
-from Bio.PDB.NeighborSearch import NeighborSearch
-from Bio.PDB.PDBParser import PDBParser
 from Bio.PDB import *
 import argparse
 from retrievepdb import *

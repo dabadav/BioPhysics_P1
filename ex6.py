@@ -9,15 +9,22 @@ parser = argparse.ArgumentParser(
 
 # Format for a optional text argument, default values can be indicated.
 parser.add_argument('-rname', 
+                    nargs= '?',
+                    dest='name',
                     help='Residue type: name'
                     )
 parser.add_argument('-rid0', 
+                    nargs= '?',
+                    default= ' ',
                     help='Residue type id: hetero-flag'
                     )
 parser.add_argument('-rid1', 
+                    nargs= '?',
                     help='Residue type id: sequence identifier'
                     )
 parser.add_argument('-rid2', 
+                    default= ' ',
+                    nargs= '?',
                     help='Residue type id: insertion code'
                     )
 
@@ -27,9 +34,10 @@ parser.add_argument('pdb_file',
 
 # Read command line into args
 args = parser.parse_args()
-parser = PDBParser()
 
-st = parser.get_structure('', args.pdb_file)
+pdbparser = PDBParser()
+
+st = pdbparser.get_structure(args.pdb_file, f'{args.pdb_file}.pdb')
 res_list = st.get_residues()
 
 sel = []
