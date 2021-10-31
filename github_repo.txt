@@ -1,0 +1,5 @@
+[Github Repository]:
+https://github.com/dantekali/BioPhysics_P1/
+
+To execute scripts with predefined parameters, run:
+./examples.sh
