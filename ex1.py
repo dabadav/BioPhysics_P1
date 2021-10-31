@@ -2,10 +2,23 @@ from Bio.PDB import *
 import argparse
 from retrievepdb import *
 
+def residue_id(res):
+    """Nice representation of a residue"""
+    return res.get_resname() + " " + res.get_parent().id + str(res.id[1])
+    # return "{} {} {}".format()
+
+def atom_id(at):
+    """Nice representation of an atom"""
+    return residue_id(at.get_parent()) + "." + at.id
+
 parser = argparse.ArgumentParser(
                                  prog='Script 1', 
                                  description='Determine the list of pairs of residues whose CA atoms are closer than a given distance'
                                  )
+
+# Format for a required parameter, call will fail if empty. This only stores the file name, but specifiying type=file, the file is open and contents available. 
+parser.add_argument('pdb_file',
+                    help='Required .pdb file for the program')
 
 # Format for a optional text argument, default values can be indicated.
 parser.add_argument('distance',
@@ -13,9 +26,6 @@ parser.add_argument('distance',
                     help='Maximum distance between CA atoms of residues pairs'
                     )
 
-# Format for a required parameter, call will fail if empty. This only stores the file name, but specifiying type=file, the file is open and contents available. 
-parser.add_argument('pdb_file',
-                    help='Required .pdb file for the program')
 
 # Read command line into args
 args = parser.parse_args()
@@ -41,16 +51,10 @@ for at in st.get_atoms():
 # Preparing search
 nbsearch = NeighborSearch(select)
 
-print("NBSEARCH:")
-
 #Searching for contacts under HBLNK
 
-ncontact = 1
-
-for at1, at2 in nbsearch.search_all(20):
-    if at1-at2 < args.distance:
-        print("Contact: ", ncontact)
-        print("ATOM 1:", at1, at1.get_serial_number(), at1.get_parent().get_resname(), at.get_parent().id[1])
-        print("ATOM 2:", at2, at2.get_serial_number(), at2.get_parent().get_resname(), at.get_parent().id[1])
+for at1, at2 in nbsearch.search_all(args.distance):
+        print(atom_id(at1))
+        print(atom_id(at2))
         print(f"Distance: {at1-at2}\n")
-    ncontact += 1
+
